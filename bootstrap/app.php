@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Auth\AuthenticationException; // Tambahan
-use Illuminate\Http\Request;                 // Tambahan
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,16 +14,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Mendaftarkan alias 'role' untuk Middleware Karin
         $middleware->alias([
             'role' => \App\Http\Middleware\CekRoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // 👇 Menangani error "Belum Login" agar return JSON, bukan redirect
+        // Mengubah error auth menjadi JSON
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'error' => 'Anda belum login atau token tidak valid.'
+                    'error' => 'Akses ditolak. Token tidak valid atau belum login.'
                 ], 401);
             }
         });
@@ -32,3 +33,5 @@ return Application::configure(basePath: dirname(__DIR__))
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ])
     ->create();
+
+

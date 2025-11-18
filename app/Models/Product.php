@@ -9,10 +9,17 @@ class Product extends Model
 {
     use HasFactory;
 
-    // 👇 INI WAJIB ADA untuk izin update massal
     protected $fillable = [
         'nama_produk',
         'stok',
         'harga',
     ];
 }
+
+
+
+
+
+
+
+

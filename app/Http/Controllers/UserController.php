@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Routing\Controller; // <-- HAPUS JIKA ADA BARIS INI
-use Illuminate\Http\Request; // <-- Pastikan ini ada
-use App\Models\User;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
+use App\Models\User; 
 
-class UserController extends Controller // <-- project-api-kelompokIni sudah benar
+class UserController extends Controller
 {
-    /**
-     * =============================================
-     * Endpoint Eka Wijaya (Get All Users)
-     * Materi: CRUD (Read), Format JSON
-     * =============================================
-     */
+    // TUGAS BENING: Get All Users (CRUD Read - RBAC)
     public function index()
     {
-        // 1. CRUD - READ (sesuai materi PDF 04)
-        // Ambil semua data dari Model User
-        $users = User::all();
+        $users = User::all(); 
 
-        // 2. Kembalikan data sebagai JSON (sesuai materi PDF 02)
-        return response()->json($users, 200); // 200 OK
+        return response()->json($users, 200); 
     }
 }
